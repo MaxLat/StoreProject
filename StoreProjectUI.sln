@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProjectUI", "StoreProjectUI\StoreProjectUI.csproj", "{BCC87B6F-AB32-4DD3-8D48-F193F757B595}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProject.UI", "StoreProjectUI\StoreProject.UI.csproj", "{BCC87B6F-AB32-4DD3-8D48-F193F757B595}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProjectData", "StoreProjectData\StoreProjectData.csproj", "{00828932-2D43-4AE5-9D0D-3AE8C0E90488}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProject.Data", "StoreProjectData\StoreProject.Data.csproj", "{00828932-2D43-4AE5-9D0D-3AE8C0E90488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProjectServices", "StoreProjectServices\StoreProjectServices.csproj", "{5941927E-BEC1-4F38-B9BF-1BA2644BB45A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreProject.Services", "StoreProjectServices\StoreProject.Services.csproj", "{5941927E-BEC1-4F38-B9BF-1BA2644BB45A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{F6588E05-788E-4287-8EEB-9D7C1C5D241C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataTier", "DataTier", "{2BC636F3-C9FF-4633-BA4E-B3967E07DD7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{D45A5C90-1743-48FE-B178-DBB41741B776}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,7 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BCC87B6F-AB32-4DD3-8D48-F193F757B595} = {F6588E05-788E-4287-8EEB-9D7C1C5D241C}
 		{00828932-2D43-4AE5-9D0D-3AE8C0E90488} = {2BC636F3-C9FF-4633-BA4E-B3967E07DD7B}
-		{5941927E-BEC1-4F38-B9BF-1BA2644BB45A} = {2BC636F3-C9FF-4633-BA4E-B3967E07DD7B}
+		{5941927E-BEC1-4F38-B9BF-1BA2644BB45A} = {D45A5C90-1743-48FE-B178-DBB41741B776}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC59976F-FDA1-4C63-9E1E-23614C75604C}
