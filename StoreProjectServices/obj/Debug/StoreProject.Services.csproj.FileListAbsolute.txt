@@ -1,0 +1,13 @@
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\StoreProjectServices.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\StoreProjectServices.pdb
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\StoreProjectData.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\EntityFramework.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\StoreProjectData.pdb
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\StoreProjectData.dll.config
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\EntityFramework.xml
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\obj\Debug\StoreProject.Services.csprojResolveAssemblyReference.cache
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\obj\Debug\StoreProject.Services.csproj.CoreCompileInputs.cache
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\obj\Debug\StoreProjectServices.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\obj\Debug\StoreProjectServices.pdb
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\AutoMapper.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectServices\bin\Debug\AutoMapper.xml

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StoreProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Products_Type">
+    <Key>
+      <PropertyRef Name="Id_Products_Type" />
+    </Key>
+    <Property Name="Id_Products_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Id_Adress" />
+    </Key>
+    <Property Name="Id_Adress" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="int" />
+    <Property Name="Street" Type="nvarchar" MaxLength="250" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="Postal_Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Id_Profil_User" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id_Products" />
+    </Key>
+    <Property Name="Id_Products" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Id_Products_Type" Type="int" />
+  </EntityType>
+  <EntityType Name="Products_Photo">
+    <Key>
+      <PropertyRef Name="Id_Products_Photo" />
+    </Key>
+    <Property Name="Id_Products_Photo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Products" Type="int" Nullable="false" />
+    <Property Name="Url_Photo" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Products_Price">
+    <Key>
+      <PropertyRef Name="Id_Products_Price" />
+    </Key>
+    <Property Name="Id_Products_Price" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Products" Type="int" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Available_Date" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Profil_User">
+    <Key>
+      <PropertyRef Name="Id_USER" />
+    </Key>
+    <Property Name="Id_USER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_ASP_USER" Type="int" Nullable="false" />
+    <Property Name="First_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Last_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone_Number" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="Id_Sales" />
+    </Key>
+    <Property Name="Id_Sales" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_ASP_USER" Type="int" Nullable="false" />
+    <Property Name="Date" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Sales_Products">
+    <Key>
+      <PropertyRef Name="Id_Sales_Products" />
+    </Key>
+    <Property Name="Id_Sales_Products" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Sales" Type="int" Nullable="false" />
+    <Property Name="Id_Products" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Id_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Products_Photo" Type="Self.Products_Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id_Products" />
+      </Principal>
+      <Dependent Role="Products_Photo">
+        <PropertyRef Name="Id_Products" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Id_Products_2">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Products_Price" Type="Self.Products_Price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id_Products" />
+      </Principal>
+      <Dependent Role="Products_Price">
+        <PropertyRef Name="Id_Products" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Id_Products_3">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Sales_Products" Type="Self.Sales_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id_Products" />
+      </Principal>
+      <Dependent Role="Sales_Products">
+        <PropertyRef Name="Id_Products" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Id_Products_Type">
+    <End Role="Products_Type" Type="Self.Products_Type" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products_Type">
+        <PropertyRef Name="Id_Products_Type" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Id_Products_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Id_Profil_User">
+    <End Role="Profil_User" Type="Self.Profil_User" Multiplicity="1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profil_User">
+        <PropertyRef Name="Id_USER" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="Id_Profil_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Id_Sales">
+    <End Role="Sales" Type="Self.Sales" Multiplicity="1" />
+    <End Role="Sales_Products" Type="Self.Sales_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sales">
+        <PropertyRef Name="Id_Sales" />
+      </Principal>
+      <Dependent Role="Sales_Products">
+        <PropertyRef Name="Id_Sales" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StoreProjectModelStoreContainer">
+    <EntitySet Name="Products_Type" EntityType="Self.Products_Type" Schema="nomenclature" store:Type="Tables" />
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="storproj" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="storproj" store:Type="Tables" />
+    <EntitySet Name="Products_Photo" EntityType="Self.Products_Photo" Schema="storproj" store:Type="Tables" />
+    <EntitySet Name="Products_Price" EntityType="Self.Products_Price" Schema="storproj" store:Type="Tables" />
+    <EntitySet Name="Profil_User" EntityType="Self.Profil_User" Schema="storproj" store:Type="Tables" />
+    <EntitySet Name="Sales" EntityType="Self.Sales" Schema="storproj" store:Type="Tables" />
+    <EntitySet Name="Sales_Products" EntityType="Self.Sales_Products" Schema="storproj" store:Type="Tables" />
+    <AssociationSet Name="FK_Id_Products" Association="Self.FK_Id_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Products_Photo" EntitySet="Products_Photo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_Products_2" Association="Self.FK_Id_Products_2">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Products_Price" EntitySet="Products_Price" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_Products_3" Association="Self.FK_Id_Products_3">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Sales_Products" EntitySet="Sales_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_Products_Type" Association="Self.FK_Id_Products_Type">
+      <End Role="Products_Type" EntitySet="Products_Type" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_Profil_User" Association="Self.FK_Id_Profil_User">
+      <End Role="Profil_User" EntitySet="Profil_User" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_Sales" Association="Self.FK_Id_Sales">
+      <End Role="Sales" EntitySet="Sales" />
+      <End Role="Sales_Products" EntitySet="Sales_Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

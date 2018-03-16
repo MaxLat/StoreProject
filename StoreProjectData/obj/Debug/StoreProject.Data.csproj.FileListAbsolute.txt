@@ -1,0 +1,11 @@
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\StoreProjectData.dll.config
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\StoreProjectData.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\StoreProjectData.pdb
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\EntityFramework.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\EntityFramework.xml
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\obj\Debug\StoreProject.Data.csprojResolveAssemblyReference.cache
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\obj\Debug\StoreProject.Data.csproj.CoreCompileInputs.cache
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\obj\Debug\StoreProjectData.dll
+C:\Users\maxime\source\repos\StoreProject\StoreProjectData\obj\Debug\StoreProjectData.pdb

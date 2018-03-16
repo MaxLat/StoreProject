@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,12 +49,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Address.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products_Photo.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products_Price.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products_Type.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Profil_User.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sales.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sales_Products.cs">
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StoreProj.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreProj.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StoreProj.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StoreProj.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreProj.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="StoreProj.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreProj.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="StoreProj.edmx.diagram">
+      <DependentUpon>StoreProj.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StoreProj.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreProj.edmx</DependentUpon>
+      <LastGenOutput>StoreProj.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="StoreProj.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreProj.edmx</DependentUpon>
+      <LastGenOutput>StoreProj.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
