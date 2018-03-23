@@ -14,10 +14,10 @@ namespace StoreProjectData
     
     public partial class Products_Photo
     {
-        public int Id_Products_Photo { get; set; }
-        public int Id_Products { get; set; }
+        public int ProductsPhotoId { get; set; }
+        public int ProductsId { get; set; }
         public string Url_Photo { get; set; }
     
-        public virtual Products Products { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

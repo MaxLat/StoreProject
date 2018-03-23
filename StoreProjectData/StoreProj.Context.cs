@@ -18,6 +18,7 @@ namespace StoreProjectData
         public StoreProjectEntities()
             : base("name=StoreProjectEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,13 +26,16 @@ namespace StoreProjectData
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Products_Type> Products_Type { get; set; }
         public virtual DbSet<Address> Address { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Sale> Sale { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Products_Type> Products_Type { get; set; }
+        public virtual DbSet<Profil_User> Profil_User { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Products_Photo> Products_Photo { get; set; }
         public virtual DbSet<Products_Price> Products_Price { get; set; }
-        public virtual DbSet<Profil_User> Profil_User { get; set; }
-        public virtual DbSet<Sales> Sales { get; set; }
-        public virtual DbSet<Sales_Products> Sales_Products { get; set; }
     }
 }

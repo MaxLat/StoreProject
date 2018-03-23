@@ -12,16 +12,12 @@ namespace StoreProjectData
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class AspNetUserLogins
     {
-        public int AdressId { get; set; }
-        public string Number { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Postal_Code { get; set; }
-        public int ProfilUserId { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual Profil_User Profil_User { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

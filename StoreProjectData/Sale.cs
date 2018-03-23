@@ -12,16 +12,20 @@ namespace StoreProjectData
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class Sale
     {
-        public int AdressId { get; set; }
-        public string Number { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Postal_Code { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sale()
+        {
+            this.Product = new HashSet<Product>();
+        }
+    
+        public int SaleId { get; set; }
         public int ProfilUserId { get; set; }
+        public string Date { get; set; }
     
         public virtual Profil_User Profil_User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

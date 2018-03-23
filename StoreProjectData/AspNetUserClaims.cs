@@ -12,13 +12,13 @@ namespace StoreProjectData
     using System;
     using System.Collections.Generic;
     
-    public partial class Sales_Products
+    public partial class AspNetUserClaims
     {
-        public int Id_Sales_Products { get; set; }
-        public int Id_Sales { get; set; }
-        public int Id_Products { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual Products Products { get; set; }
-        public virtual Sales Sales { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

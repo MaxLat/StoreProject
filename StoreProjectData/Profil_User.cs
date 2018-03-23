@@ -18,15 +18,20 @@ namespace StoreProjectData
         public Profil_User()
         {
             this.Address = new HashSet<Address>();
+            this.Sale = new HashSet<Sale>();
         }
     
-        public int Id_USER { get; set; }
-        public int Id_ASP_USER { get; set; }
+        public int ProfilUserId { get; set; }
+        public string AspUserId { get; set; }
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
         public string Phone_Number { get; set; }
+        public Nullable<bool> Active { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale> Sale { get; set; }
     }
 }

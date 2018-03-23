@@ -14,11 +14,11 @@ namespace StoreProjectData
     
     public partial class Products_Price
     {
-        public int Id_Products_Price { get; set; }
-        public int Id_Products { get; set; }
+        public int ProductPriceId { get; set; }
+        public int ProductId { get; set; }
         public double Price { get; set; }
         public string Available_Date { get; set; }
     
-        public virtual Products Products { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

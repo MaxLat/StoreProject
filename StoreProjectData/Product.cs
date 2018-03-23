@@ -12,27 +12,27 @@ namespace StoreProjectData
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public Product()
         {
+            this.Sale = new HashSet<Sale>();
             this.Products_Photo = new HashSet<Products_Photo>();
             this.Products_Price = new HashSet<Products_Price>();
-            this.Sales_Products = new HashSet<Sales_Products>();
         }
     
-        public int Id_Products { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Nullable<int> Id_Products_Type { get; set; }
+        public Nullable<int> ProductsTypeId { get; set; }
     
         public virtual Products_Type Products_Type { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale> Sale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_Photo> Products_Photo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_Price> Products_Price { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sales_Products> Sales_Products { get; set; }
     }
 }
