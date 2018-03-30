@@ -37,5 +37,8 @@ namespace StoreProjectData
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Products_Photo> Products_Photo { get; set; }
         public virtual DbSet<Products_Price> Products_Price { get; set; }
+        public virtual DbSet<Sale_Product> Sale_Product { get; set; }
+        public virtual DbSet<Language> Language { get; set; }
+        public virtual DbSet<Resource> Resource { get; set; }
     }
 }

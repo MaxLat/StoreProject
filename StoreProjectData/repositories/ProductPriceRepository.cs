@@ -36,7 +36,6 @@ namespace StoreProjectData.repositories
             var dbProductPrice = GetFirst<Products_Price>(pr => pr.ProductId == Product_price.ProductId && pr.ProductPriceId == Product_price.ProductPriceId);
             dbProductPrice.Price = Product_price.Price ?? dbProductPrice.Price;
             dbProductPrice.Available_Date = Product_price.Available_Date ?? dbProductPrice.Available_Date;
-            dbProductPrice.Available_Date = Product_price.Available_Date;
             SaveChanges();
         }
     }

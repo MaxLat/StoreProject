@@ -26,13 +26,13 @@ namespace StoreProjectData.repositories
             SaveChanges();
         }
 
-        public void AddProfilUser(Address address)
+        public void AddAddress(Address address)
         {
             Add(address);
             SaveChanges();
         }
 
-        public void UpdateProfilUser(Address address)
+        public void UpdateAddress(Address address)
         {
             var dbAddress = GetFirst<Address>(ad => ad.ProfilUserId == address.ProfilUserId);
 

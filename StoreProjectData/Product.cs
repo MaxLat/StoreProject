@@ -17,9 +17,9 @@ namespace StoreProjectData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Sale = new HashSet<Sale>();
             this.Products_Photo = new HashSet<Products_Photo>();
             this.Products_Price = new HashSet<Products_Price>();
+            this.Sale_Product = new HashSet<Sale_Product>();
         }
     
         public int ProductId { get; set; }
@@ -29,10 +29,10 @@ namespace StoreProjectData
     
         public virtual Products_Type Products_Type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale> Sale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_Photo> Products_Photo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_Price> Products_Price { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Product> Sale_Product { get; set; }
     }
 }

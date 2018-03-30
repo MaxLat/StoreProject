@@ -1,192 +1,327 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="StoreProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Products_Type">
-    <Key>
-      <PropertyRef Name="Id_Products_Type" />
-    </Key>
-    <Property Name="Id_Products_Type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Id_Products_Type" FromRole="Products_Type" ToRole="Products" />
-  </EntityType>
+  <EntityContainer Name="StoreProjectEntities" annotation:LazyLoadingEnabled="false">
+    <EntitySet Name="Address" EntityType="StoreProjectModel.Address" />
+    <EntitySet Name="Sale" EntityType="StoreProjectModel.Sale" />
+    <EntitySet Name="AspNetRoles" EntityType="StoreProjectModel.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="StoreProjectModel.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="StoreProjectModel.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="StoreProjectModel.AspNetUsers" />
+    <EntitySet Name="Products_Type" EntityType="StoreProjectModel.Products_Type" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="StoreProjectModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="StoreProjectModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="StoreProjectModel.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="Profil_User" EntityType="StoreProjectModel.Profil_User" />
+    <AssociationSet Name="FK_ProfilUser_Aspnetusers_Id" Association="StoreProjectModel.FK_ProfilUser_Aspnetusers_Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Profil_User" EntitySet="Profil_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Address_ProfilUser" Association="StoreProjectModel.FK_Address_ProfilUser">
+      <End Role="Profil_User" EntitySet="Profil_User" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sale_Profil_User" Association="StoreProjectModel.FK_Sale_Profil_User">
+      <End Role="Profil_User" EntitySet="Profil_User" />
+      <End Role="Sale" EntitySet="Sale" />
+    </AssociationSet>
+    <EntitySet Name="Product" EntityType="StoreProjectModel.Product" />
+    <AssociationSet Name="FK_Id_Products_Type" Association="StoreProjectModel.FK_Id_Products_Type">
+      <End Role="Products_Type" EntitySet="Products_Type" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <EntitySet Name="Products_Photo" EntityType="StoreProjectModel.Products_Photo" />
+    <AssociationSet Name="FK_Id_Products" Association="StoreProjectModel.FK_Id_Products">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Products_Photo" EntitySet="Products_Photo" />
+    </AssociationSet>
+    <EntitySet Name="Products_Price" EntityType="StoreProjectModel.Products_Price" />
+    <AssociationSet Name="FK_Id_Products_2" Association="StoreProjectModel.FK_Id_Products_2">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Products_Price" EntitySet="Products_Price" />
+    </AssociationSet>
+    <EntitySet Name="Sale_Product" EntityType="StoreProjectModel.Sale_Product" />
+    <AssociationSet Name="FK_Id_Products_3" Association="StoreProjectModel.FK_Id_Products_3">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Sale_Product" EntitySet="Sale_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_Sales" Association="StoreProjectModel.FK_Id_Sales">
+      <End Role="Sale" EntitySet="Sale" />
+      <End Role="Sale_Product" EntitySet="Sale_Product" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Address">
     <Key>
-      <PropertyRef Name="Id_Adress" />
+      <PropertyRef Name="AdressId" />
     </Key>
-    <Property Name="Id_Adress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Number" Type="Int32" />
+    <Property Name="AdressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Street" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Postal_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Id_Profil_User" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Profil_User" Relationship="Self.FK_Id_Profil_User" FromRole="Address" ToRole="Profil_User" />
+    <Property Name="ProfilUserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Profil_User" Relationship="StoreProjectModel.FK_Address_ProfilUser" FromRole="Address" ToRole="Profil_User" />
   </EntityType>
-  <EntityType Name="Products">
+  <EntityType Name="Sale">
     <Key>
-      <PropertyRef Name="Id_Products" />
+      <PropertyRef Name="SaleId" />
     </Key>
-    <Property Name="Id_Products" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Id_Products_Type" Type="Int32" />
-    <NavigationProperty Name="Products_Type" Relationship="Self.FK_Id_Products_Type" FromRole="Products" ToRole="Products_Type" />
-    <NavigationProperty Name="Products_Photo" Relationship="Self.FK_Id_Products" FromRole="Products" ToRole="Products_Photo" />
-    <NavigationProperty Name="Products_Price" Relationship="Self.FK_Id_Products_2" FromRole="Products" ToRole="Products_Price" />
-    <NavigationProperty Name="Sales_Products" Relationship="Self.FK_Id_Products_3" FromRole="Products" ToRole="Sales_Products" />
+    <Property Name="SaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfilUserId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Profil_User" Relationship="StoreProjectModel.FK_Sale_Profil_User" FromRole="Sale" ToRole="Profil_User" />
+    <NavigationProperty Name="Sale_Product" Relationship="StoreProjectModel.FK_Id_Sales" FromRole="Sale" ToRole="Sale_Product" />
   </EntityType>
-  <EntityType Name="Products_Photo">
+  <EntityType Name="AspNetRoles">
     <Key>
-      <PropertyRef Name="Id_Products_Photo" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id_Products_Photo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_Products" Type="Int32" Nullable="false" />
-    <Property Name="Url_Photo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Id_Products" FromRole="Products_Photo" ToRole="Products" />
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="StoreProjectModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
   </EntityType>
-  <EntityType Name="Products_Price">
+  <EntityType Name="AspNetUserClaims">
     <Key>
-      <PropertyRef Name="Id_Products_Price" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id_Products_Price" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_Products" Type="Int32" Nullable="false" />
-    <Property Name="Price" Type="Double" Nullable="false" />
-    <Property Name="Available_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Id_Products_2" FromRole="Products_Price" ToRole="Products" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="StoreProjectModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
   </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="StoreProjectModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="StoreProjectModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="StoreProjectModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="StoreProjectModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+    <NavigationProperty Name="Profil_User" Relationship="StoreProjectModel.FK_ProfilUser_Aspnetusers_Id" FromRole="AspNetUsers" ToRole="Profil_User" />
+  </EntityType>
+  <EntityType Name="Products_Type">
+    <Key>
+      <PropertyRef Name="ProductsTypeId" />
+    </Key>
+    <Property Name="ProductsTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="StoreProjectModel.FK_Id_Products_Type" FromRole="Products_Type" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="StoreProjectModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="StoreProjectModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="StoreProjectModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="StoreProjectModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="StoreProjectModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+    <End Type="StoreProjectModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+  </Association>
   <EntityType Name="Profil_User">
     <Key>
-      <PropertyRef Name="Id_USER" />
+      <PropertyRef Name="ProfilUserId" />
     </Key>
-    <Property Name="Id_USER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_ASP_USER" Type="Int32" Nullable="false" />
+    <Property Name="ProfilUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AspUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Address" Relationship="Self.FK_Id_Profil_User" FromRole="Profil_User" ToRole="Address" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="AspNetUsers" Relationship="StoreProjectModel.FK_ProfilUser_Aspnetusers_Id" FromRole="Profil_User" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Address" Relationship="StoreProjectModel.FK_Address_ProfilUser" FromRole="Profil_User" ToRole="Address" />
+    <NavigationProperty Name="Sale" Relationship="StoreProjectModel.FK_Sale_Profil_User" FromRole="Profil_User" ToRole="Sale" />
   </EntityType>
-  <EntityType Name="Sales">
-    <Key>
-      <PropertyRef Name="Id_Sales" />
-    </Key>
-    <Property Name="Id_Sales" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_ASP_USER" Type="Int32" Nullable="false" />
-    <Property Name="Date" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Sales_Products" Relationship="Self.FK_Id_Sales" FromRole="Sales" ToRole="Sales_Products" />
-  </EntityType>
-  <EntityType Name="Sales_Products">
-    <Key>
-      <PropertyRef Name="Id_Sales_Products" />
-    </Key>
-    <Property Name="Id_Sales_Products" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Id_Sales" Type="Int32" Nullable="false" />
-    <Property Name="Id_Products" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Id_Products_3" FromRole="Sales_Products" ToRole="Products" />
-    <NavigationProperty Name="Sales" Relationship="Self.FK_Id_Sales" FromRole="Sales_Products" ToRole="Sales" />
-  </EntityType>
-  <Association Name="FK_Id_Products_Type">
-    <End Role="Products_Type" Type="Self.Products_Type" Multiplicity="0..1" />
-    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+  <Association Name="FK_ProfilUser_Aspnetusers_Id">
+    <End Type="StoreProjectModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+    <End Type="StoreProjectModel.Profil_User" Role="Profil_User" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Products_Type">
-        <PropertyRef Name="Id_Products_Type" />
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Products">
-        <PropertyRef Name="Id_Products_Type" />
+      <Dependent Role="Profil_User">
+        <PropertyRef Name="AspUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Id_Profil_User">
-    <End Role="Profil_User" Type="Self.Profil_User" Multiplicity="1" />
-    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+  <Association Name="FK_Address_ProfilUser">
+    <End Type="StoreProjectModel.Profil_User" Role="Profil_User" Multiplicity="1" />
+    <End Type="StoreProjectModel.Address" Role="Address" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Profil_User">
-        <PropertyRef Name="Id_USER" />
+        <PropertyRef Name="ProfilUserId" />
       </Principal>
       <Dependent Role="Address">
-        <PropertyRef Name="Id_Profil_User" />
+        <PropertyRef Name="ProfilUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Id_Products">
-    <End Role="Products" Type="Self.Products" Multiplicity="1" />
-    <End Role="Products_Photo" Type="Self.Products_Photo" Multiplicity="*" />
+  <Association Name="FK_Sale_Profil_User">
+    <End Type="StoreProjectModel.Profil_User" Role="Profil_User" Multiplicity="1" />
+    <End Type="StoreProjectModel.Sale" Role="Sale" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="Id_Products" />
+      <Principal Role="Profil_User">
+        <PropertyRef Name="ProfilUserId" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ProfilUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductsTypeId" Type="Int32" />
+    <NavigationProperty Name="Products_Type" Relationship="StoreProjectModel.FK_Id_Products_Type" FromRole="Product" ToRole="Products_Type" />
+    <NavigationProperty Name="Products_Photo" Relationship="StoreProjectModel.FK_Id_Products" FromRole="Product" ToRole="Products_Photo" />
+    <NavigationProperty Name="Products_Price" Relationship="StoreProjectModel.FK_Id_Products_2" FromRole="Product" ToRole="Products_Price" />
+    <NavigationProperty Name="Sale_Product" Relationship="StoreProjectModel.FK_Id_Products_3" FromRole="Product" ToRole="Sale_Product" />
+  </EntityType>
+  <Association Name="FK_Id_Products_Type">
+    <End Type="StoreProjectModel.Products_Type" Role="Products_Type" Multiplicity="0..1" />
+    <End Type="StoreProjectModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products_Type">
+        <PropertyRef Name="ProductsTypeId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductsTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Products_Photo">
+    <Key>
+      <PropertyRef Name="ProductsPhotoId" />
+    </Key>
+    <Property Name="ProductsPhotoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductsId" Type="Int32" Nullable="false" />
+    <Property Name="Url_Photo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="StoreProjectModel.FK_Id_Products" FromRole="Products_Photo" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Id_Products">
+    <End Type="StoreProjectModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="StoreProjectModel.Products_Photo" Role="Products_Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
       </Principal>
       <Dependent Role="Products_Photo">
-        <PropertyRef Name="Id_Products" />
+        <PropertyRef Name="ProductsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Products_Price">
+    <Key>
+      <PropertyRef Name="ProductPriceId" />
+    </Key>
+    <Property Name="ProductPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Available_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="StoreProjectModel.FK_Id_Products_2" FromRole="Products_Price" ToRole="Product" />
+  </EntityType>
   <Association Name="FK_Id_Products_2">
-    <End Role="Products" Type="Self.Products" Multiplicity="1" />
-    <End Role="Products_Price" Type="Self.Products_Price" Multiplicity="*" />
+    <End Type="StoreProjectModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="StoreProjectModel.Products_Price" Role="Products_Price" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="Id_Products" />
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
       </Principal>
       <Dependent Role="Products_Price">
-        <PropertyRef Name="Id_Products" />
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Sale_Product">
+    <Key>
+      <PropertyRef Name="SaleId" />
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="SaleId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="quantite" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="StoreProjectModel.FK_Id_Products_3" FromRole="Sale_Product" ToRole="Product" />
+    <NavigationProperty Name="Sale" Relationship="StoreProjectModel.FK_Id_Sales" FromRole="Sale_Product" ToRole="Sale" />
+  </EntityType>
   <Association Name="FK_Id_Products_3">
-    <End Role="Products" Type="Self.Products" Multiplicity="1" />
-    <End Role="Sales_Products" Type="Self.Sales_Products" Multiplicity="*" />
+    <End Type="StoreProjectModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="StoreProjectModel.Sale_Product" Role="Sale_Product" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="Id_Products" />
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
       </Principal>
-      <Dependent Role="Sales_Products">
-        <PropertyRef Name="Id_Products" />
+      <Dependent Role="Sale_Product">
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Id_Sales">
-    <End Role="Sales" Type="Self.Sales" Multiplicity="1" />
-    <End Role="Sales_Products" Type="Self.Sales_Products" Multiplicity="*" />
+    <End Type="StoreProjectModel.Sale" Role="Sale" Multiplicity="1" />
+    <End Type="StoreProjectModel.Sale_Product" Role="Sale_Product" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Sales">
-        <PropertyRef Name="Id_Sales" />
+      <Principal Role="Sale">
+        <PropertyRef Name="SaleId" />
       </Principal>
-      <Dependent Role="Sales_Products">
-        <PropertyRef Name="Id_Sales" />
+      <Dependent Role="Sale_Product">
+        <PropertyRef Name="SaleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="StoreProjectEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Products_Type" EntityType="Self.Products_Type" />
-    <EntitySet Name="Address" EntityType="Self.Address" />
-    <EntitySet Name="Products" EntityType="Self.Products" />
-    <EntitySet Name="Products_Photo" EntityType="Self.Products_Photo" />
-    <EntitySet Name="Products_Price" EntityType="Self.Products_Price" />
-    <EntitySet Name="Profil_User" EntityType="Self.Profil_User" />
-    <EntitySet Name="Sales" EntityType="Self.Sales" />
-    <EntitySet Name="Sales_Products" EntityType="Self.Sales_Products" />
-    <AssociationSet Name="FK_Id_Products_Type" Association="Self.FK_Id_Products_Type">
-      <End Role="Products_Type" EntitySet="Products_Type" />
-      <End Role="Products" EntitySet="Products" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Id_Profil_User" Association="Self.FK_Id_Profil_User">
-      <End Role="Profil_User" EntitySet="Profil_User" />
-      <End Role="Address" EntitySet="Address" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Id_Products" Association="Self.FK_Id_Products">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Products_Photo" EntitySet="Products_Photo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Id_Products_2" Association="Self.FK_Id_Products_2">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Products_Price" EntitySet="Products_Price" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Id_Products_3" Association="Self.FK_Id_Products_3">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Sales_Products" EntitySet="Sales_Products" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Id_Sales" Association="Self.FK_Id_Sales">
-      <End Role="Sales" EntitySet="Sales" />
-      <End Role="Sales_Products" EntitySet="Sales_Products" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

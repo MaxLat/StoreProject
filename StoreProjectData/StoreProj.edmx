@@ -56,6 +56,13 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="languageId" />
+          </Key>
+          <Property Name="languageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="label" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Products_Type">
           <Key>
             <PropertyRef Name="ProductsTypeId" />
@@ -112,6 +119,15 @@
           <Property Name="Phone_Number" Type="nvarchar" MaxLength="50" />
           <Property Name="Active" Type="bit" />
         </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="Sale">
           <Key>
             <PropertyRef Name="SaleId" />
@@ -122,11 +138,12 @@
         </EntityType>
         <EntityType Name="Sale_Product">
           <Key>
-            <PropertyRef Name="Id_Sales" />
-            <PropertyRef Name="Id_Products" />
+            <PropertyRef Name="SaleId" />
+            <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="Id_Sales" Type="int" Nullable="false" />
-          <Property Name="Id_Products" Type="int" Nullable="false" />
+          <Property Name="SaleId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="quantite" Type="int" />
         </EntityType>
         <Association Name="FK_Address_ProfilUser">
           <End Role="Profil_User" Type="Self.Profil_User" Multiplicity="1" />
@@ -228,7 +245,7 @@
               <PropertyRef Name="ProductId" />
             </Principal>
             <Dependent Role="Sale_Product">
-              <PropertyRef Name="Id_Products" />
+              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -252,7 +269,7 @@
               <PropertyRef Name="SaleId" />
             </Principal>
             <Dependent Role="Sale_Product">
-              <PropertyRef Name="Id_Sales" />
+              <PropertyRef Name="SaleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -265,6 +282,18 @@
             </Principal>
             <Dependent Role="Profil_User">
               <PropertyRef Name="AspUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resource_Language">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="Resource" Type="Self.Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="languageId" />
+            </Principal>
+            <Dependent Role="Resource">
+              <PropertyRef Name="LanguageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -286,12 +315,14 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="nomenclature" store:Type="Tables" />
           <EntitySet Name="Products_Type" EntityType="Self.Products_Type" Schema="nomenclature" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="storproj" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="storproj" store:Type="Tables" />
           <EntitySet Name="Products_Photo" EntityType="Self.Products_Photo" Schema="storproj" store:Type="Tables" />
           <EntitySet Name="Products_Price" EntityType="Self.Products_Price" Schema="storproj" store:Type="Tables" />
           <EntitySet Name="Profil_User" EntityType="Self.Profil_User" Schema="storproj" store:Type="Tables" />
+          <EntitySet Name="Resource" EntityType="Self.Resource" Schema="storproj" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="storproj" store:Type="Tables" />
           <EntitySet Name="Sale_Product" EntityType="Self.Sale_Product" Schema="storproj" store:Type="Tables" />
           <AssociationSet Name="FK_Address_ProfilUser" Association="Self.FK_Address_ProfilUser">
@@ -337,6 +368,10 @@
           <AssociationSet Name="FK_ProfilUser_Aspnetusers_Id" Association="Self.FK_ProfilUser_Aspnetusers_Id">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Profil_User" EntitySet="Profil_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resource_Language" Association="Self.FK_Resource_Language">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="Resource" EntitySet="Resource" />
           </AssociationSet>
           <AssociationSet Name="FK_Sale_Profil_User" Association="Self.FK_Sale_Profil_User">
             <End Role="Profil_User" EntitySet="Profil_User" />
@@ -385,10 +420,6 @@
             <End Role="Products_Type" EntitySet="Products_Type" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="Sale_Product" Association="StoreProjectModel.Sale_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Sale" EntitySet="Sale" />
-          </AssociationSet>
           <EntitySet Name="Products_Photo" EntityType="StoreProjectModel.Products_Photo" />
           <AssociationSet Name="FK_Id_Products" Association="StoreProjectModel.FK_Id_Products">
             <End Role="Product" EntitySet="Product" />
@@ -399,7 +430,22 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="Products_Price" EntitySet="Products_Price" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Sale_Product" EntityType="StoreProjectModel.Sale_Product" />
+          <AssociationSet Name="FK_Id_Products_3" Association="StoreProjectModel.FK_Id_Products_3">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sale_Product" EntitySet="Sale_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Id_Sales" Association="StoreProjectModel.FK_Id_Sales">
+            <End Role="Sale" EntitySet="Sale" />
+            <End Role="Sale_Product" EntitySet="Sale_Product" />
+          </AssociationSet>
+          <EntitySet Name="Language" EntityType="StoreProjectModel.Language" />
+          <EntitySet Name="Resource" EntityType="StoreProjectModel.Resource" />
+          <AssociationSet Name="FK_Resource_Language" Association="StoreProjectModel.FK_Resource_Language">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="Resource" EntitySet="Resource" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AdressId" />
@@ -421,7 +467,7 @@
           <Property Name="ProfilUserId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Profil_User" Relationship="StoreProjectModel.FK_Sale_Profil_User" FromRole="Sale" ToRole="Profil_User" />
-          <NavigationProperty Name="Product" Relationship="StoreProjectModel.Sale_Product" FromRole="Sale" ToRole="Product" />
+          <NavigationProperty Name="Sale_Product" Relationship="StoreProjectModel.FK_Id_Sales" FromRole="Sale" ToRole="Sale_Product" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -572,9 +618,9 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProductsTypeId" Type="Int32" />
           <NavigationProperty Name="Products_Type" Relationship="StoreProjectModel.FK_Id_Products_Type" FromRole="Product" ToRole="Products_Type" />
-          <NavigationProperty Name="Sale" Relationship="StoreProjectModel.Sale_Product" FromRole="Product" ToRole="Sale" />
           <NavigationProperty Name="Products_Photo" Relationship="StoreProjectModel.FK_Id_Products" FromRole="Product" ToRole="Products_Photo" />
           <NavigationProperty Name="Products_Price" Relationship="StoreProjectModel.FK_Id_Products_2" FromRole="Product" ToRole="Products_Price" />
+          <NavigationProperty Name="Sale_Product" Relationship="StoreProjectModel.FK_Id_Products_3" FromRole="Product" ToRole="Sale_Product" />
         </EntityType>
         <Association Name="FK_Id_Products_Type">
           <End Type="StoreProjectModel.Products_Type" Role="Products_Type" Multiplicity="0..1" />
@@ -587,10 +633,6 @@
               <PropertyRef Name="ProductsTypeId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="Sale_Product">
-          <End Type="StoreProjectModel.Product" Role="Product" Multiplicity="*" />
-          <End Type="StoreProjectModel.Sale" Role="Sale" Multiplicity="*" />
         </Association>
         <EntityType Name="Products_Photo">
           <Key>
@@ -635,7 +677,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Sale_Product">
+          <Key>
+            <PropertyRef Name="SaleId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="SaleId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="quantite" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="StoreProjectModel.FK_Id_Products_3" FromRole="Sale_Product" ToRole="Product" />
+          <NavigationProperty Name="Sale" Relationship="StoreProjectModel.FK_Id_Sales" FromRole="Sale_Product" ToRole="Sale" />
+        </EntityType>
+        <Association Name="FK_Id_Products_3">
+          <End Type="StoreProjectModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="StoreProjectModel.Sale_Product" Role="Sale_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Sale_Product">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Id_Sales">
+          <End Type="StoreProjectModel.Sale" Role="Sale" Multiplicity="1" />
+          <End Type="StoreProjectModel.Sale_Product" Role="Sale_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="SaleId" />
+            </Principal>
+            <Dependent Role="Sale_Product">
+              <PropertyRef Name="SaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="languageId" />
+          </Key>
+          <Property Name="languageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="label" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Resource" Relationship="StoreProjectModel.FK_Resource_Language" FromRole="Language" ToRole="Resource" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Language" Relationship="StoreProjectModel.FK_Resource_Language" FromRole="Resource" ToRole="Language" />
+        </EntityType>
+        <Association Name="FK_Resource_Language">
+          <End Type="StoreProjectModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="StoreProjectModel.Resource" Role="Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="languageId" />
+            </Principal>
+            <Dependent Role="Resource">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -746,14 +853,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Sale_Product" TypeName="StoreProjectModel.Sale_Product" StoreEntitySet="Sale_Product">
-            <EndProperty Name="Sale">
-              <ScalarProperty Name="SaleId" ColumnName="Id_Sales" />
-            </EndProperty>
-            <EndProperty Name="Product">
-              <ScalarProperty Name="ProductId" ColumnName="Id_Products" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Products_Photo">
             <EntityTypeMapping TypeName="StoreProjectModel.Products_Photo">
               <MappingFragment StoreEntitySet="Products_Photo">
@@ -770,6 +869,32 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductPriceId" ColumnName="ProductPriceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Product">
+            <EntityTypeMapping TypeName="StoreProjectModel.Sale_Product">
+              <MappingFragment StoreEntitySet="Sale_Product">
+                <ScalarProperty Name="quantite" ColumnName="quantite" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SaleId" ColumnName="SaleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Language">
+            <EntityTypeMapping TypeName="StoreProjectModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="languageId" ColumnName="languageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resource">
+            <EntityTypeMapping TypeName="StoreProjectModel.Resource">
+              <MappingFragment StoreEntitySet="Resource">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

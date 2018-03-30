@@ -12,20 +12,18 @@ namespace StoreProjectData
     using System;
     using System.Collections.Generic;
     
-    public partial class Sale
+    public partial class Language
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sale()
+        public Language()
         {
-            this.Sale_Product = new HashSet<Sale_Product>();
+            this.Resource = new HashSet<Resource>();
         }
     
-        public int SaleId { get; set; }
-        public int ProfilUserId { get; set; }
-        public string Date { get; set; }
+        public int languageId { get; set; }
+        public string label { get; set; }
     
-        public virtual Profil_User Profil_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale_Product> Sale_Product { get; set; }
+        public virtual ICollection<Resource> Resource { get; set; }
     }
 }
