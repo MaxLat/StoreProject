@@ -18,6 +18,11 @@ namespace StoreProjectData.repositories
             return GetFirst<Profil_User>(pu => pu.ProfilUserId == profil_userId, "AspNetUser","Address");
         }
 
+        public IEnumerable<Profil_User> GetAllProfileUser()
+        {
+            return GetAll<Profil_User>();
+        }
+
         public void RemoveProfilUser(Profil_User profil_User)
         {   var dbProfil_User = GetFirst<Profil_User>(pu => pu.ProfilUserId == profil_User.ProfilUserId);
             dbProfil_User.Active = false;
